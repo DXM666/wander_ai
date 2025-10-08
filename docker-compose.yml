@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  wander-ai:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - VOLCANO_ACCESS_KEY=${VOLCANO_ACCESS_KEY}
+      - VOLCANO_SECRET_KEY=${VOLCANO_SECRET_KEY}
+      - VOLCANO_REGION=${VOLCANO_REGION}
+    volumes:
+      - ./static:/app/static
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -9,6 +9,8 @@ class TravelPhotoRequest(BaseModel):
     user_image_url: str
     scene_image_url: str
     location: str
+    style: str = "natural"  # natural, artistic, vintage, modern, cinematic
+    quality: str = "high"   # high, ultra, professional
 
 @router.post("/generate-travel-photo")
 async def generate_travel_photo_endpoint(request: TravelPhotoRequest):
@@ -20,7 +22,9 @@ async def generate_travel_photo_endpoint(request: TravelPhotoRequest):
         result = await generate_travel_photo(
             request.user_image_url, 
             request.scene_image_url, 
-            request.location
+            request.location,
+            request.style,
+            request.quality
         )
         
         return {

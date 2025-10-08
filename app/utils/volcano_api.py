@@ -94,7 +94,9 @@ def signV4Request(access_key, secret_key, service, req_query, req_body):
 async def call_volcano_image_api(
     user_image_url: str,
     scene_image_url: str,
-    location: str
+    location: str,
+    style: str = "natural",
+    quality: str = "high"
 ):
     """
     调用火山引擎AI绘画API生成旅游打卡照片
@@ -117,9 +119,13 @@ async def call_volcano_image_api(
             'Version': '2022-08-31',
         }
         
+        # 使用prompt构造工具生成优化的prompt
+        from app.utils.prompt_builder import build_travel_photo_prompt
+        enhanced_prompt = build_travel_photo_prompt(location, style, quality)
+        
         body_params = {
             "req_key": "jimeng_t2i_v40",
-            "prompt": f"将人物照片合成到{location}的风景照片中",
+            "prompt": enhanced_prompt,
             "image_urls": [user_image_url, scene_image_url],
             "req_json":{
                 "return_url": True
