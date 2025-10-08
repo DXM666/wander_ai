@@ -1,0 +1,24 @@
+.windsurf/rules/project-style.md
+__pycache__
+
+# 环境变量文件 - 包含敏感信息
+.env
+.env.local
+.env.*.local
+
+# Python虚拟环境
+.venv/
+venv/
+env/
+
+# IDE配置
+.vscode/
+.idea/
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
